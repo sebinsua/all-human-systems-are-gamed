@@ -1,0 +1,31 @@
+{
+  "name": "all-human-systems-are-gamed",
+  "version": "0.0.0",
+  "description": "All Human Systems Are Gamed",
+  "main": "index.js",
+  "dependencies": {
+    "spooky": "~0.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "preinstall": "./install.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bemomentum/all-human-systems-are-gamed.git"
+  },
+  "keywords": [
+    "game",
+    "linkedin",
+    "ab",
+    "markets",
+    "search",
+    "spider"
+  ],
+  "author": "Seb Insua",
+  "license": "Commercial & Personal Use Only",
+  "bugs": {
+    "url": "https://github.com/bemomentum/all-human-systems-are-gamed/issues"
+  }
+}
