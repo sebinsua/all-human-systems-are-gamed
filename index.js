@@ -1,4 +1,5 @@
-var Spooky = require('spooky');
+var config = require('./config.json'),
+    Spooky = require('spooky');
 
 var spooky = new Spooky({
   child: {
@@ -26,7 +27,34 @@ var spooky = new Spooky({
   });
 
   spooky.then(function () {
-    this.emit('hello', this.evaluate(function () { return document.title; }));
+    this.log('Logged in.');
+
+    this.open('http://www.linkedin.com/vsearch/p?f_N=S,O&f_SE=5,3&f_G=gb%3A0&page_num=1');
+  });
+
+  spooky.then(function () {
+    // .next a.page-link
+
+    var hrefs = this.evaluate(function () {
+      var peopleDom = document.querySelectorAll('.people h3 a.title');
+      var hrefs = [];
+      for (var i = 0; i < peopleDom.length; i++) {
+        hrefs.push(peopleDom[i].href);
+      }
+      return hrefs;
+    });
+
+    for (var i = 0; i < hrefs.length; i++) {
+      // this.emit('console', hrefs[i]);
+    }
+    this.open(hrefs[0]); // @todo: Find out how to loop with phantom.js. May
+                         //        have to alter Spooky!
+  });
+
+  spooky.then(function () {
+    this.capture('page.png');
+    // @todo: Work out why this wasn't registered on LinkedIn.
+    this.emit('console', this.evaluate(function () { return document.title; }));
   });
 
   spooky.run();
