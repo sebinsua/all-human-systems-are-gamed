@@ -5,7 +5,7 @@ var spooky = new Spooky({
     transport: 'http'
   },
   casper: {
-    logLevel: 'debug',
+    logLevel: 'info',
     verbose: true
   }
 }, function (err) {
@@ -16,11 +16,19 @@ var spooky = new Spooky({
   }
 
   spooky.start('https://linkedin.com');
+
   spooky.then(function () {
-    this.emit('hello', 'Hello, from ' + this.evaluate(function () {
-      return document.title;
-    }));
+    this.evaluate(function () {
+      document.querySelector('input[name="session_key"]').value = "[username]";
+      document.querySelector('input[name="session_password"]').value = "[password]";
+      document.querySelector('form[name="login"]').submit();
+    });
   });
+
+  spooky.then(function () {
+    this.emit('hello', this.evaluate(function () { return document.title; }));
+  });
+
   spooky.run();
 });
 
